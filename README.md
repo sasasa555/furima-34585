@@ -5,9 +5,8 @@
 | Column             | Type                | Options                 |
 |--------------------|---------------------|-------------------------|
 | nickname           | string              | null: false             |
-| email              | unique: true        | null: false             |
-| encrypted_password | string              | null: false             |
-| profile            | text                | null: false             |
+| email              | string              | null: false             |
+| encrypted_password | string              | null: false             |            |
 | surname            | string              | null: false             |
 | name               | string              | null: false             |
 | surname_katakana   | string              | null: false             |
@@ -25,8 +24,7 @@
 ### Association
 
 * has_many :items
-* has_many :purchase record
-* has_many :shipping_address
+* has_many :purchase_records
 
 
 
@@ -41,10 +39,10 @@
 | description                         | text       | null: false       |
 | category_id                         | integer    | null: false       |
 | status_id                           | integer    | null: false       |
-| shipping charges_id                 | integer    | null: false       |
-| shipping area_id                    | integer    | null: false       |
-| days to ship_id                     | integer    | null: false       |
-| selling price                       | integer    | null: false       |
+| shipping_charges_id                 | integer    | null: false       |
+| shipping_area_id                    | integer    | null: false       |
+| days_to_ship_id                     | integer    | null: false       |
+| selling_price                       | integer    | null: false       |
 | user_id                             | references | foreign_key: true |
 
 
@@ -98,19 +96,16 @@
 
 | Column            | Type       | Options           |
 |-------------------|------------|-------------------|
-| postal code       | integer    | null: false       |
-| prefectures       | text       | null: false       |
-| municipality      | text       | null: false       |
-| address           | text       | null: false       |
-| building name     | text       | null: false       |
-| phone number      | integer    | null: false       |
-| user_id           | references | foreign_key: true |
+| postal_code       | integer    | null: false       |
+| active_hash       | integer    | null: false       |
+| municipality      | string     | null: false       |
+| address           | string     | null: false       |
+| building_name     | string     | null: false       |
+| phone_number      | string     | null: false       |
 
 
 ### Association
 
-- belongs_to :item
-- belongs_to :user
 - belongs_to :purchase_record
 
 
