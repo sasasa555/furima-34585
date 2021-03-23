@@ -68,9 +68,9 @@
 
 | Column            | Type       | Options           |
 |-------------------|------------|-------------------|
-| card information  | text       | null: false       |
-| expiration date   | integer    | null: false       |
-| security code     | integer    | null: false       |
+| card_information  | text       | null: false       |
+| expiration_date   | integer    | null: false       |
+| security_code     | integer    | null: false       |
 | user_id           | references | foreign_key: true |
 | items_id          | references | foreign_key: true |
 
