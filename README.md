@@ -5,21 +5,29 @@
 | Column             | Type                | Options                 |
 |--------------------|---------------------|-------------------------|
 | nickname           | string              | null: false             |
-| email              | string              | null: false             |
-| password           | integer             | null: false             |
+| email              | unique: true        | null: false             |
+| encrypted_password | string              | null: false             |
 | profile            | text                | null: false             |
+| surname            | string              | null: false             |
 | name               | string              | null: false             |
-| Birthday           | datetime            | null: false             |
+| surname_katakana   | string              | null: false             |
+| name_katakana      | string              | null: false             |
+| birthday           | date                | null: false             |
 
 
-#ここにパスワードの確認
-#本人確認の名前の全角とカタカナの表示の仕方
-#生年月日合っているか
+#Surname 姓
+#Katakana
+#
+#
+
+
 
 ### Association
 
 * has_many :items
-* belongs_to :Purchase record table
+* has_many :purchase record
+* has_many :shipping_address
+
 
 
 
@@ -29,16 +37,15 @@
 
 | Column                              | Type       | Options           |
 |-------------------------------------|------------|-------------------|
-| image                               | binary     | null: false       |
 | title                               | string     | null: false       |
 | description                         | text       | null: false       |
-| Category                            | boolean    | null: false       |
-| Status                              | boolean    | null: false       |
-| Shipping charges                    | boolean    | null: false       |
-| Shipping area                       | boolean    | null: false       |
-| Days to ship                        | boolean    | null: false       |
-| Selling price                       | bigint     | null: false       |
-| user                                | references | foreign_key: true |
+| category_id                         | integer    | null: false       |
+| status_id                           | integer    | null: false       |
+| shipping charges_id                 | integer    | null: false       |
+| shipping area_id                    | integer    | null: false       |
+| days to ship_id                     | integer    | null: false       |
+| selling price                       | integer    | null: false       |
+| user_id                             | references | foreign_key: true |
 
 
 #和訳
@@ -53,32 +60,29 @@
 ### Association
 
 - belongs_to :user
-- has_one :Purchase record
+* has_one    :purchase_record
+- belongs_to :shipping_address
 
 
 
-## Purchase record table （商品購入機能）
+
+## purchase_record table （商品購入機能）
 
 | Column            | Type       | Options           |
 |-------------------|------------|-------------------|
-| Card information  | text       | null: false       |
+| card information  | text       | null: false       |
 | expiration date   | integer    | null: false       |
 | security code     | integer    | null: false       |
-| Postal code       | integer    | null: false       |
-| Prefectures       | text       | null: false       |
-| Municipality      | text       | null: false       |
-| address           | text       | null: false       |
-| Building name     | text       | null: false       |
-| phone number      | integer    | null: false       |
-| user              | references | foreign_key: true |
-| items             | references | foreign_key: true |
-
+| user_id           | references | foreign_key: true |
+| items_id          | references | foreign_key: true |
 
 
 ### Association
 
 - belongs_to :item
 - belongs_to :user
+- has_many   :shipping_address
+
 
 #Card information カード情報
 #expiration date 有効期限
@@ -88,4 +92,25 @@
 #Municipality 市町村区
 #address 番地
 #Building name 建物名
+
+
+## shipping_address table （配送先情報）
+
+| Column            | Type       | Options           |
+|-------------------|------------|-------------------|
+| postal code       | integer    | null: false       |
+| prefectures       | text       | null: false       |
+| municipality      | text       | null: false       |
+| address           | text       | null: false       |
+| building name     | text       | null: false       |
+| phone number      | integer    | null: false       |
+| user_id           | references | foreign_key: true |
+
+
+### Association
+
+- belongs_to :item
+- belongs_to :user
+- belongs_to :purchase_record
+
 
