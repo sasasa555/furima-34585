@@ -63,7 +63,7 @@
 
 
 
-## purchase_record table （商品購入機能）
+## purchase_records table （商品購入機能）
 
 | Column            | Type       | Options           |
 |-------------------|------------|-------------------|
@@ -88,7 +88,7 @@
 #Building name 建物名
 
 
-## shipping_address table （配送先情報）
+## shipping_addresses table （配送先情報）
 
 | Column            | Type       | Options           |
 |-------------------|------------|-------------------|
@@ -98,7 +98,7 @@
 | address           | string     | null: false       |
 | building_name     | string     |                   |
 | phone_number      | string     | null: false       |
-| purchase_record_id| integer    | foreign_key: true |
+| purchase_record   | references | null: false       |
 
 
 ### Association
