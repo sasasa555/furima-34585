@@ -5,8 +5,8 @@
 | Column             | Type                | Options                 |
 |--------------------|---------------------|-------------------------|
 | nickname           | string              | null: false             |
-| email              | string              | unique:true             |
-| encrypted_password | string              | null: false             |            |
+| email              | string              | null: false unique:true |
+| encrypted_password | string              | null: false             |
 | surname            | string              | null: false             |
 | name               | string              | null: false             |
 | surname_katakana   | string              | null: false             |
@@ -39,7 +39,7 @@
 | description                         | text       | null: false       |
 | category_id                         | integer    | null: false       |
 | status_id                           | integer    | null: false       |
-| shipping_charges_id                 | integer    | null: false       |
+| shipping_charge_id                  | integer    | null: false       |
 | shipping_area_id                    | integer    | null: false       |
 | days_to_ship_id                     | integer    | null: false       |
 | selling_price                       | integer    | null: false       |
@@ -96,8 +96,9 @@
 | shipping_area_id  | integer    | null: false       |
 | municipality      | string     | null: false       |
 | address           | string     | null: false       |
-| building_name     | string     | foreign_key: true |
+| building_name     | string     |                   |
 | phone_number      | string     | null: false       |
+| purchase_record_id| integer    | foreign_key: true |
 
 
 ### Association
