@@ -4,105 +4,108 @@
 
 | Column             | Type                | Options                 |
 |--------------------|---------------------|-------------------------|
-| nickname           |                     | null: false             |
-| email              |                     | null: false             |
-| password           | string              | null: false             |
-| profile            | text                | null: false             |
-| name               | text                | null: false             |
-| Birthday           | text                | null: false             |
+| nickname           | string              | null: false             |
+| email              | string              | null: false unique:true |
+| encrypted_password | string              | null: false             |
+| surname            | string              | null: false             |
+| name               | string              | null: false             |
+| surname_katakana   | string              | null: false             |
+| name_katakana      | string              | null: false             |
+| birthday           | date                | null: false             |
 
 
-#ここにパスワードの確認
-#本人確認の名前の全角とカタカナの表示の仕方
-#生年月日合っているか
+#Surname 姓
+#Katakana
+#
+#
+
 
 
 ### Association
 
 * has_many :items
-* has_many :comments
-* belongs_to :Purchase record table
-* belongs_to :Shipping information
+* has_many :purchase_records
 
 
 
 
+##  items table(商品出品機能）
 
-##  items table(商品情報）
-)
 ＃商品情報
 
 | Column                              | Type       | Options           |
 |-------------------------------------|------------|-------------------|
-| image                               | string     | null: false       |
 | title                               | string     | null: false       |
 | description                         | text       | null: false       |
-| Category                            | text       | null: false       |
-| Status                              | references | foreign_key: true |
-| Shipping charges                    | string     | null: false       |
-| Shipping area                       | text       | null: false       |
-| Days to ship                        | text       | null: false       |
-| Selling price                       | text       | null: false       |
-| Status                              | references | foreign_key: true |
+| category_id                         | integer    | null: false       |
+| status_id                           | integer    | null: false       |
+| shipping_charge_id                  | integer    | null: false       |
+| shipping_area_id                    | integer    | null: false       |
+| days_to_ship_id                     | integer    | null: false       |
+| selling_price                       | integer    | null: false       |
+| user                                | references | foreign_key: true |
 
 
 #和訳
 #description 説明
 #Status 状態
-#Shipping charges　配送料の負担　
+#Shipping charges 配送料の負担
 #Shipping area 発送元の地域
 #Days to ship 発送までの日数
 #Selling price 販売価格
-#Sales commission 販売手数料
-#Sales profit　販売利益
+
 
 ### Association
 
 - belongs_to :user
-- has_one :Purchase record
+* has_one    :purchase_record
 
 
 
-## Purchase record table　（購入記録）
 
-| Column      | Type       | Options           |
-|-------------|------------|-------------------|
-| text        | text       | null: false       |
-| ◎prototype  | references | foreign_key: true |
-| user        | references | foreign_key: true |
-
-### Association
-
-- belongs_to :user
-- belongs_to :items
-
-
-
-## Shipping information table （発送先情報）
+## purchase_records table （商品購入機能）
 
 | Column            | Type       | Options           |
 |-------------------|------------|-------------------|
-| Card information  | text       | null: false       |
-| expiration date   | references | foreign_key: true |
-| security code     | references | foreign_key: true |
-| Postal code       | text       | null: false       |
-| Prefectures       | references | foreign_key: true |
-| Municipality      | references | foreign_key: true |
-| address           | text       | null: false       |
-| Building name     | references | foreign_key: true |
-| phone number      | references | foreign_key: true |
+| user              | references | foreign_key: true |
+| item              | references | foreign_key: true |
 
 
 ### Association
 
 - belongs_to :item
 - belongs_to :user
+- has_one    :shipping_address
+
 
 #Card information カード情報
-#expiration date　有効期限
+#expiration date 有効期限
 #security code セキュリティコード
-#Postal code　郵便番号
+#Postal code 郵便番号
 #Prefectures 都道府県
 #Municipality 市町村区
-#address　番地
+#address 番地
 #Building name 建物名
+
+
+
+## shipping_addresses table （配送先情報）
+
+| Column            | Type       | Options           |
+|-------------------|------------|-------------------|
+| postal_code       | string     | null: false       |
+| shipping_area_id  | integer    | null: false       |
+| municipality      | string     | null: false       |
+| address           | string     | null: false       |
+| building_name     | string     |                   |
+| phone_number      | string     | null: false       |
+| purchase_record   | references | null: false       |
+
+
+### Association
+
+- belongs_to :purchase_record
+
+
+#shipping_area_idはitems table(商品出品機能）と同じカラムになる
+
