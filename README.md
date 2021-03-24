@@ -68,7 +68,7 @@
 | Column            | Type       | Options           |
 |-------------------|------------|-------------------|
 | user              | references | foreign_key: true |
-| items             | references | foreign_key: true |
+| item              | references | foreign_key: true |
 
 
 ### Association
@@ -93,10 +93,10 @@
 | Column            | Type       | Options           |
 |-------------------|------------|-------------------|
 | postal_code       | string     | null: false       |
-| prefectures       | integer    | null: false       |
+| shipping_area_id  | integer    | null: false       |
 | municipality      | string     | null: false       |
 | address           | string     | null: false       |
-| building_name     | string     |                   |
+| building_name     | string     | foreign_key: true |
 | phone_number      | string     | null: false       |
 
 
@@ -104,4 +104,6 @@
 
 - belongs_to :purchase_record
 
+
+#shipping_area_idはitems table(商品出品機能）と同じカラムになる
 
